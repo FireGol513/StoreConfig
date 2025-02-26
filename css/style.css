@@ -1,0 +1,36 @@
+nav  > a {
+    text-align: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    color: white;
+}
+
+nav {
+    display: flex;
+    background-color: rgb(38, 7, 161);
+    flex-flow: row;
+    justify-content: space-evenly;
+}
+
+footer {
+    background-color: #666;
+    padding: 5em;
+
+}
+footer > a{
+    color: #eee;
+}
+
+a {
+    text-decoration-color: transparent;
+}
+
+body{
+    background-color: rgb(46, 149, 238);
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+article > h1{
+    text-align:center;
+}
