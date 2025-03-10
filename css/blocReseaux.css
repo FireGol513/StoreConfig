@@ -17,8 +17,6 @@ article {
 }
 
 
-
-
 article > h3{
     color: #eee;
 }
@@ -58,9 +56,9 @@ fieldset > input{
 
 .buttonMachine:hover{
     background-color: #eee;
-    position: relative;
+    /* position: relative;
     top: -20px;
-    height: 58px;
+    height: 600px; */
 }
 
 .conteneurBouton{
@@ -75,4 +73,47 @@ fieldset > input{
 a{
     text-decoration: none;
 
+}
+
+
+/* Règle CSS pour le menu de création de réseau et de machine */
+#menuCreation{
+    position: fixed;
+    margin:0 auto; /* Met les marges de top et bottom à zéro*/
+    width: 56%;
+    height: 70%;
+    z-index: 100;
+    top: 15%;
+    left: 20%;
+}
+
+#horsMenuCreation{
+    height: 100%; 
+    overflow: hidden;
+}
+
+#buttonQuitterMenu{
+    background: #ccc;
+    border: none;
+    border-radius: 4px;
+    cursor:pointer;
+    height: min-content;
+}
+
+#menuCreation > header{
+    display: grid;
+    grid-template-columns: 10fr 0.5fr;
+}
+
+
+
+#menuCreation > header > h2{
+    text-align: center;
+    position: relative;
+    left: 2em;
+    display: inline;
+}
+
+#menuCreation > header > button{
+    
 }

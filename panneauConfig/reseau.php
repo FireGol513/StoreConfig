@@ -80,8 +80,8 @@
         <?php
             echo '<div class="conteneurBouton">';
             if(ActionModifier()){
-                echo '<button class="buttonMachine"><img src="/storeconfig/images/Creation/plus-icon.png" alt="Ajouter"></button>';
-                echo '<button class="buttonMachine"><img src="/storeconfig/images/Creation/minus-icon.png" alt="Supprimer"></button>';
+                echo '<button class="buttonMachine" onclick="afficherMenuCreationMachine()"><img src="/storeconfig/images/Creation/plus-icon.png" alt="Ajouter"></button>';
+                echo '<button class="buttonMachine" onclick="afficherCheckboxSupprimer()"><img src="/storeconfig/images/Creation/minus-icon.png" alt="Supprimer"></button>';
             }
             echo '</div>';
 
