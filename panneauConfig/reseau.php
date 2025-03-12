@@ -60,6 +60,12 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/blocReseaux.css">
+
+    <!--- Font personnalisé-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
+
     <script src="/storeconfig/js/reseau.js"></script>
 </head>
 <body>

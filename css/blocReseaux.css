@@ -85,7 +85,9 @@ a{
     z-index: 100;
     top: 15%;
     left: 20%;
+    overflow-y: auto;
 }
+
 
 #horsMenuCreation{
     height: 100%; 
@@ -106,10 +108,29 @@ a{
 }
 
 
-
 #menuCreation > header > h2{
     text-align: center;
     position: relative;
     left: 2em;
     display: inline;
+}
+
+
+.titreMenu{
+    text-transform: uppercase;
+}
+
+.questionMenuCreation{
+    margin-bottom: 1.5em;
+    font-family: "Aldrich", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.questionAPI{
+    padding-left: 1.5em;
+}
+
+.buttonCreationMachineAPI{
+    margin-top: 2em;
 }
