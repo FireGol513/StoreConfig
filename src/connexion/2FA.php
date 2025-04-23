@@ -12,26 +12,14 @@ function envoyerMail($to, $message) {
     return mail($to, $subject, $message, $headers);
 }
 
-function ReprendreSession2FA(){
-    define("DUREE_SESSION",60*15);//Utilisée pour le cookie et timestamp. (15min)
-                
-    ini_set("session.cookie_lifetime", DUREE_SESSION); // Durée de la session en secondes
-    ini_set("session.use_cookies", 1);
-    ini_set("session.use_only_cookies" , 1);
-    ini_set("session.use_strict_mode", 1);
-    ini_set("session.cookie_httponly", 1);
-    ini_set("session.cookie_secure", 1);
-    ini_set("session.cookie_samesite" , "Strict");
-    ini_set("session.cache_limiter" , "nocache");
-    ini_set("session.hash_function" , "sha512");
 
+// Reprendre la session de 2FA
 
-    session_name("2FA"); //C'est la session pour la 2FA
+require_once __DIR__."/../service/session/Session2FA.include.php";
 
-    session_start();
-}
-
-ReprendreSession2FA();
+$session2FA = new Session2FA();
+session_start();
+$session2FA->validerSession();
 
 if (isset($_SESSION["courriel"]) && isset($_SESSION["nomUtilisateur"])){
     $courriel = $_SESSION["courriel"];

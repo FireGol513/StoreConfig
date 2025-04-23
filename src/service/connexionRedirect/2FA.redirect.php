@@ -1,50 +1,21 @@
 <?php
 
-
-function CreerSessionConnecte(string $nomUtilisateur){
-    define("DUREE_SESSION",60*120);//Utilisée pour le cookie et timestamp. (2h)
-                
-    ini_set("session.cookie_lifetime", DUREE_SESSION); // Durée de la session en secondes
-    ini_set("session.use_cookies", 1);
-    ini_set("session.use_only_cookies" , 1);
-    ini_set("session.use_strict_mode", 1);
-    ini_set("session.cookie_httponly", 1);
-    ini_set("session.cookie_secure", 1);
-    ini_set("session.cookie_samesite" , "Strict");
-    ini_set("session.cache_limiter" , "nocache");
-    ini_set("session.hash_function" , "sha512");
+require_once __DIR__."/../session/Session2FA.include.php";
+require_once __DIR__."/../session/SessionFinale.include.php";
 
 
-    session_name("Connecte"); //C'est la session de l'utilisateur connecte
-
+function CreerSessionFinaleConnecte(string $nomUtilisateur, Session2FA $sessionASupprimer){
+    
+    $sessionASupprimer->supprimer();
+    $sessionFinale = new SessionFinale();
     session_start();
-
-    // Mettre les paramètres de session
-    $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
-    $_SESSION["nomUtilisateur"] = $nomUtilisateur;
-    $_SESSION["hote"] = $_SERVER["REMOTE_USER"];
-
-    header("Location: ../../index.php");
+    $sessionFinale->setSession($nomUtilisateur);
 }
 
-function ReprendreSession2FA(){
-    ini_set("session.cookie_lifetime", 60*15); // Durée de la session en secondes
-    ini_set("session.use_cookies", 1);
-    ini_set("session.use_only_cookies" , 1);
-    ini_set("session.use_strict_mode", 1);
-    ini_set("session.cookie_httponly", 1);
-    ini_set("session.cookie_secure", 1);
-    ini_set("session.cookie_samesite" , "Strict");
-    ini_set("session.cache_limiter" , "nocache");
-    ini_set("session.hash_function" , "sha512");
-
-
-    session_name("2FA"); //C'est la session pour la 2FA
-
-    session_start();
-}
-
-ReprendreSession2FA();
+// Reprendre session 2FA
+$session2FA = new Session2FA();
+session_start();
+$session2FA->validerSession();
 
 if (isset($_POST["Code2FA"]) && isset($_SESSION["code"]) && isset($_SESSION["courriel"]) && isset($_SESSION["nomUtilisateur"])){
     
@@ -59,8 +30,8 @@ if (isset($_POST["Code2FA"]) && isset($_SESSION["code"]) && isset($_SESSION["cou
 
     if ($code2FA == $_SESSION["code"]){
         session_destroy();
-        CreerSessionConnecte($nomUtilisateur);
-
+        CreerSessionFinaleConnecte($nomUtilisateur, $session2FA);
+        header("Location: ../../index.php");
     }
     else{
         error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Le code de 2FA ne correspond pas: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");

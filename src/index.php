@@ -1,28 +1,10 @@
 <?php
 
-function ReprendreSessionConnecte() {
-    define("DUREE_SESSION",60*120);//Utilisée pour le cookie et timestamp. (2h)
-                
-    ini_set("session.cookie_lifetime", DUREE_SESSION); // Durée de la session en secondes
-    ini_set("session.use_cookies", 1);
-    ini_set("session.use_only_cookies" , 1);
-    ini_set("session.use_strict_mode", 1);
-    ini_set("session.cookie_httponly", 1);
-    ini_set("session.cookie_secure", 1);
-    ini_set("session.cookie_samesite" , "Strict");
-    ini_set("session.cache_limiter" , "nocache");
-    ini_set("session.hash_function" , "sha512");
+require_once __DIR__."/service/session/SessionFinale.include.php";
 
 
-    session_name("Connecte"); //C'est la session de l'utilisateur connecte
-
-    session_start();
-    
-}
-
-ReprendreSessionConnecte();
-
-
+$sessionConnecte = new SessionFinale();
+session_start();
 ?>
 
 
@@ -47,7 +29,7 @@ ReprendreSessionConnecte();
                 <li><a href="support.html">Support</a></li>
                 <li>
                     <? if(isset($_SESSION["nomUtilisateur"])){
-                            echo "<a href='index.php'>".$_SESSION["nomUtilisateur"]; // TEMP (Doit etre changer!!!!)
+                            echo "<a href='service/connexionRedirect/deconnexion.redirect.php'>".$_SESSION["nomUtilisateur"]; // TEMP (Doit etre changer!!!!)
                         }
                         else{
                             echo "<a href='connexion/'>"."Connexion";

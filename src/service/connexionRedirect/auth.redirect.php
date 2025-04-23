@@ -1,35 +1,14 @@
 <?php
 
 require_once "../db/repository/Select/SelectUtilisateur.classe.php";
+require_once "../session/Session2FA.include.php";
 
 
 function CreerSession2FA(string $nomUtilisateur, string $courriel) {
-    define("DUREE_SESSION",60*15);//Utilisée pour le cookie et timestamp. (15min)
-                
-    ini_set("session.cookie_lifetime", DUREE_SESSION); // Durée de la session en secondes
-    ini_set("session.use_cookies", 1);
-    ini_set("session.use_only_cookies" , 1);
-    ini_set("session.use_strict_mode", 1);
-    ini_set("session.cookie_httponly", 1);
-    ini_set("session.cookie_secure", 1);
-    ini_set("session.cookie_samesite" , "Strict");
-    ini_set("session.cache_limiter" , "nocache");
-    ini_set("session.hash_function" , "sha512");
-
-
-    session_name("2FA"); //C'est la session pour la 2FA
-
-    
+    $session = new Session2FA();
     session_start();
-
-    // Mettre les paramètres de session
-    $_SESSION["courriel"] = $courriel;
-    $_SESSION["nomUtilisateur"] = $nomUtilisateur;
-
-    header("Location: ../../connexion/2FA.php");
+    $session->setSession($nomUtilisateur, $courriel);
 }
-
-
 
 
 if (!empty($_POST['courriel']) and !empty($_POST['mdp'])){
@@ -51,15 +30,16 @@ if (!empty($_POST['courriel']) and !empty($_POST['mdp'])){
         // Vérifier si le mot de passe correspond à l'utilisateur
         if (password_verify($mdp, $utilisateur->getMdp())){
             CreerSession2FA($utilisateur->getNomUtilisateur(), $courriel);
+            header("Location: ../../connexion/2FA.php");
         }
         else{
             // Il n'a pas le bon mot de passe
-            echo "Courriel ou mot de passe erroné";
+            header("Location: ../../erreur/erreur.php"); // "Courriel ou mot de passe erroné"
         }
     }
     else{
         // Il n'a pas le bon courriel (Utilisateur n'existe pas)
-        echo "Courriel ou mot de passe erroné";
+        header("Location: ../../erreur/erreur.php"); // "Courriel ou mot de passe erroné"
     }
 
     
