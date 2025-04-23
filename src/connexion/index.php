@@ -19,3 +19,5 @@
     <input type="submit" value="Se connecter">
 
 </form>
+
+<a href="creerCompte.php">Pas de compte? Créé le!</a>

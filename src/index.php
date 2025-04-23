@@ -1,3 +1,31 @@
+<?php
+
+function ReprendreSessionConnecte() {
+    define("DUREE_SESSION",60*120);//Utilisée pour le cookie et timestamp. (2h)
+                
+    ini_set("session.cookie_lifetime", DUREE_SESSION); // Durée de la session en secondes
+    ini_set("session.use_cookies", 1);
+    ini_set("session.use_only_cookies" , 1);
+    ini_set("session.use_strict_mode", 1);
+    ini_set("session.cookie_httponly", 1);
+    ini_set("session.cookie_secure", 1);
+    ini_set("session.cookie_samesite" , "Strict");
+    ini_set("session.cache_limiter" , "nocache");
+    ini_set("session.hash_function" , "sha512");
+
+
+    session_name("Connecte"); //C'est la session de l'utilisateur connecte
+
+    session_start();
+    
+}
+
+ReprendreSessionConnecte();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,9 +43,17 @@
             <ul>
                 <li><a href="mesProduits.html">Mes produits</a></li>
                 <li><a href="nosProduits.html">Nos produits</a></li>
-                <li><a href="index.html">StoreConfig</a></li>
+                <li><a href="index.php">StoreConfig</a></li>
                 <li><a href="support.html">Support</a></li>
-                <li><a href="">Connexion</a></li>
+                <li>
+                    <? if(isset($_SESSION["nomUtilisateur"])){
+                            echo "<a href='index.php'>".$_SESSION["nomUtilisateur"]; // TEMP (Doit etre changer!!!!)
+                        }
+                        else{
+                            echo "<a href='connexion/'>"."Connexion";
+                        }
+                    ?>
+                </a></li>
             </ul>
         </nav>
     </header>

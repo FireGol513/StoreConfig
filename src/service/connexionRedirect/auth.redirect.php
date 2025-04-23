@@ -3,9 +3,31 @@
 require_once "../db/repository/Select/SelectUtilisateur.classe.php";
 
 
-// function CreerSession2FA() {
-//     session_start();
-// }
+function CreerSession2FA(string $nomUtilisateur, string $courriel) {
+    define("DUREE_SESSION",60*15);//Utilisée pour le cookie et timestamp. (15min)
+                
+    ini_set("session.cookie_lifetime", DUREE_SESSION); // Durée de la session en secondes
+    ini_set("session.use_cookies", 1);
+    ini_set("session.use_only_cookies" , 1);
+    ini_set("session.use_strict_mode", 1);
+    ini_set("session.cookie_httponly", 1);
+    ini_set("session.cookie_secure", 1);
+    ini_set("session.cookie_samesite" , "Strict");
+    ini_set("session.cache_limiter" , "nocache");
+    ini_set("session.hash_function" , "sha512");
+
+
+    session_name("2FA"); //C'est la session pour la 2FA
+
+    
+    session_start();
+
+    // Mettre les paramètres de session
+    $_SESSION["courriel"] = $courriel;
+    $_SESSION["nomUtilisateur"] = $nomUtilisateur;
+
+    header("Location: ../../connexion/2FA.php");
+}
 
 
 
@@ -28,7 +50,7 @@ if (!empty($_POST['courriel']) and !empty($_POST['mdp'])){
     if (isset($utilisateur)){
         // Vérifier si le mot de passe correspond à l'utilisateur
         if (password_verify($mdp, $utilisateur->getMdp())){
-            echo "TEMP_CONNECTE";
+            CreerSession2FA($utilisateur->getNomUtilisateur(), $courriel);
         }
         else{
             // Il n'a pas le bon mot de passe
