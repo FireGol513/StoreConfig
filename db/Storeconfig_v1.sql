@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Utilisateurs (
 	Id INT NOT NULL AUTO_INCREMENT,
     NomUtilisateur VARCHAR(50) NOT NULL,
     Courriel VARCHAR(100) NOT NULL,
-    MDP VARCHAR(128) NOT NULL,
+    MDP VARCHAR(255) NOT NULL,
     PRIMARY KEY (Id, NomUtilisateur, Courriel)
 );
 
