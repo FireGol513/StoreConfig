@@ -41,14 +41,14 @@ class SessionFinale extends Session
                 if (!isset($_SESSION['nomUtilisateur']) || !isset($_SESSION['ip']) || !isset($_SESSION['delai']))
                 {
                     $this->supprimer();
-                    error_log("[".date("d/m/o H:i:s e",time())."] Accès directe refusée au requérant ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../logs/14avril2025.acces.log");
-                    header("Location: ../views/erreur.php");
+                    error_log("[".date("d/m/o H:i:s e",time())."] Accès directe refusée au requérant ".$_SERVER['REMOTE_ADDR']."\n\r",3, $_SERVER['DOCUMENT_ROOT']."/../logs/14avril2025.acces.log");
+                    header("Location: /storeconfig/erreur/erreur.php?erreur=nonAuth");
                     exit();
 
                 } elseif ((time() - $_SESSION['delai']) > DUREE_SESSION_FINAL) {
                     $this->supprimer();
-                    error_log("[".date("d/m/o H:i:s e",time())."] Session expirée : Requérant ".$_SERVER['REMOTE_ADDR']."Client authorisé: ".$_SESSION['courriel']."\n\r" ,3, __DIR__."/../../../logs/14avril2025.acces.log");
-                    header("Location: ../index.php?session=expire");
+                    error_log("[".date("d/m/o H:i:s e",time())."] Session expirée : Requérant ".$_SERVER['REMOTE_ADDR']."Client authorisé: ".$_SESSION['courriel']."\n\r" ,3, $_SERVER['DOCUMENT_ROOT']."/../logs/14avril2025.acces.log");
+                    header("Location: /storeconfig/erreur/erreur.php?session=expire");
                     exit();
                     
                 }

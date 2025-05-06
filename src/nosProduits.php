@@ -34,7 +34,7 @@ session_start();
                 <li><a href="support.php">Support</a></li>
                 <li>
                     <? if(isset($_SESSION["nomUtilisateur"])){
-                            echo "<a href='service/connexionRedirect/deconnexion.redirect.php'>".$_SESSION["nomUtilisateur"]."<br /> Déconnexion"; // TEMP (Doit etre changer!!!!)
+                            echo "<a href='service/connexionRedirect/deconnexion.redirect.php'>".$_SESSION["nomUtilisateur"]."<br /> Déconnexion";
                         }
                         else{
                             echo "<a href='/storeconfig/connexion/'>"."Connexion";
@@ -46,11 +46,11 @@ session_start();
     </header>
 
     <!-- Information sur les nouveautés du site et nos produits en général -->
-    <h1 id="titre">StoreConfig</h1>
+    <h1 id="titre">Nos produits</h1>
     
     <article>
         <section id="slogan">
-                <b>Des configurations réseaux plus dynamiques qu'un fichier Excel !</b>
+                <b>Voici nos différents produits !</b>
         </section>
     </article>
     

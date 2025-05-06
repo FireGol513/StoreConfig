@@ -42,13 +42,13 @@ class Session2FA extends Session
                 {
                     $this->supprimer();
                     error_log("[".date("d/m/o H:i:s e",time())."] Accès directe refusée au requérant ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-                    // header("Location: ./../erreur/erreur.php");
+                    header("Location: /storeconfig/erreur/erreur.php");
                     exit();
 
                 } elseif ((time() - $_SESSION['delai']) > DUREE_SESSION_2FA) {
                     $this->supprimer();
                     error_log("[".date("d/m/o H:i:s e",time())."] Session expirée : Requérant ".$_SERVER['REMOTE_ADDR']."Client authorisé: ".$_SESSION['courriel']."\n\r" ,3, __DIR__."/../../../../logs/storeconfig.acces.log");
-                    header("Location: ./../erreur/erreur.php");
+                    header("Location: /storeconfig/erreur/erreur.php");
                     exit();
                     
                 }

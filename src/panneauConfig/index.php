@@ -14,7 +14,7 @@
             <ul>
                 <li><a href=".">StoreConfig Control Panel</a></li>
                 <!--- Pour quitter, il faudra se déconnecter?-->
-                <li><a href="../index.html">Quitter</a></li>
+                <li><a href="../index.php">Quitter</a></li>
             </ul>
         </nav>
     </header>
@@ -28,7 +28,7 @@
         '<article id="reseau_div_'.$i.'">
             <h3>Nom Réseaux '.$i.'</h3>
             <form action="reseau.php" name="RéseauxAction" method="get">
-                <img src="https://automationcommunity.com/wp-content/uploads/2023/01/Tree-Network-Topology.jpg" alt="Image du réseaux">
+                <img src="/storeconfig/images/Reseaux/Tree-Network-Topology.jpg" alt="Image du réseaux">
                 <fieldset>
                     <input type="submit" name="reseau'.$i.'" value="Voir"><br />
                     <input type="submit" name="reseau'.$i.'" value="Modifier"><br />

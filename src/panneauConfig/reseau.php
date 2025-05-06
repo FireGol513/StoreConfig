@@ -74,7 +74,7 @@
             <ul>
                 <li><a href=".">StoreConfig Control Panel</a></li>
                 <!--- Pour quitter, il faudra se déconnecter?-->
-                <li><a href="../index.html">Quitter</a></li>
+                <li><a href="../index.php">Quitter</a></li>
             </ul>
         </nav>
     </header>

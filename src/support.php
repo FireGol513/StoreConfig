@@ -46,11 +46,11 @@ session_start();
     </header>
 
     <!-- Information sur les nouveautés du site et nos produits en général -->
-    <h1 id="titre">StoreConfig</h1>
+    <h1 id="titre">Support</h1>
     
     <article>
         <section id="slogan">
-                <b>Des configurations réseaux plus dynamiques qu'un fichier Excel !</b>
+                <b>Nous sommes là pour vous!</b>
         </section>
     </article>
     
