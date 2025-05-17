@@ -39,10 +39,8 @@ fieldset {
     justify-content: space-evenly;
 }
 
-fieldset > input{
-    padding: 1em;
-    width: 8em;
-    
+fieldset > *{
+    padding: 1em;   
 }
 
 .titreReseau{
@@ -85,12 +83,16 @@ a{
     top: 15%;
     left: 20%;
     overflow-y: auto;
+    pointer-events: initial;
+    user-select: initial;
 }
 
 
 #horsMenuCreation{
     height: 100%; 
     overflow: hidden;
+    pointer-events: none;
+    user-select: none;
 }
 
 #buttonQuitterMenu{

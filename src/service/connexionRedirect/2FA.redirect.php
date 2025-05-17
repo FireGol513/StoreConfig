@@ -4,12 +4,12 @@ require_once __DIR__."/../session/Session2FA.include.php";
 require_once __DIR__."/../session/SessionFinale.include.php";
 
 
-function CreerSessionFinaleConnecte(string $nomUtilisateur, Session2FA $sessionASupprimer){
+function CreerSessionFinaleConnecte(int $idUtilisateur, string $nomUtilisateur, Session2FA $sessionASupprimer){
     
     $sessionASupprimer->supprimer();
     $sessionFinale = new SessionFinale();
     session_start();
-    $sessionFinale->setSession($nomUtilisateur);
+    $sessionFinale->setSession($nomUtilisateur, null, $idUtilisateur);
 }
 
 // Reprendre session 2FA
@@ -21,6 +21,7 @@ if (isset($_POST["Code2FA"]) && isset($_SESSION["code"]) && isset($_SESSION["cou
     
     $code2FA = filter_input(INPUT_POST, "Code2FA", FILTER_VALIDATE_INT);
     $nomUtilisateur = $_SESSION["nomUtilisateur"];
+    $idUtilisateur = $_SESSION["idUtilisateur"];
 
     if (!isset($code2FA)){
         error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Le code de 2FA n'ai pas numérique: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
@@ -30,7 +31,7 @@ if (isset($_POST["Code2FA"]) && isset($_SESSION["code"]) && isset($_SESSION["cou
 
     if ($code2FA == $_SESSION["code"]){
         session_destroy();
-        CreerSessionFinaleConnecte($nomUtilisateur, $session2FA);
+        CreerSessionFinaleConnecte($idUtilisateur, $nomUtilisateur, $session2FA);
         header("Location: ../../index.php");
     }
     else{

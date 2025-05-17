@@ -23,7 +23,7 @@ abstract class Session
     /**
      * Affecte les valeurs nécessaires à la validation de la session selon l'étape de la session.
      */
-    public abstract function setSession(string $nomUtilisateur, ?string $courriel);
+    public abstract function setSession(string $nomUtilisateur, ?string $courriel, ?int $idUtilisateur);
 
 
     /**

@@ -4,10 +4,10 @@ require_once "../db/repository/Select/SelectUtilisateur.classe.php";
 require_once "../session/Session2FA.include.php";
 
 
-function CreerSession2FA(string $nomUtilisateur, string $courriel) {
+function CreerSession2FA(string $nomUtilisateur, string $courriel, int $idUtilisateur) {
     $session = new Session2FA();
     session_start();
-    $session->setSession($nomUtilisateur, $courriel);
+    $session->setSession($nomUtilisateur, $courriel, $idUtilisateur);
 }
 
 
@@ -29,7 +29,7 @@ if (!empty($_POST['courriel']) and !empty($_POST['mdp'])){
     if (isset($utilisateur)){
         // Vérifier si le mot de passe correspond à l'utilisateur
         if (password_verify($mdp, $utilisateur->getMdp())){
-            CreerSession2FA($utilisateur->getNomUtilisateur(), $courriel);
+            CreerSession2FA($utilisateur->getNomUtilisateur(), $courriel, $utilisateur->getId());
             header("Location: ../../connexion/2FA.php");
         }
         else{

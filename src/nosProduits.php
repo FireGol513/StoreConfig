@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/service/session/SessionFinale.include.php";
+include_once __DIR__."/service/session/SessionFinale.include.php";
 
 
 $sessionConnecte = new SessionFinale();

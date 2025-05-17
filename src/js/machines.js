@@ -10,7 +10,7 @@ class Machine {
     constructor(parameters) {
         
     }
-}
+} 
 
 
 function afficherMenuCreationMachine() {
@@ -24,7 +24,7 @@ function afficherMenuCreationMachine() {
     // Création d'un bouton pour quitter le menu
     let boutonQuitter = document.createElement("button");
     boutonQuitter.setAttribute("id","buttonQuitterMenu");
-    boutonQuitter.setAttribute("onclick","desactiverMenuCreationMachine('menuCreation')");
+    boutonQuitter.setAttribute("onclick","desactiverMenu('menuCreation')");
     boutonQuitter.textContent = "X";
 
     // Règle CSS pour menu
@@ -197,19 +197,7 @@ function afficherQuestionsAPI(checkbox, fieldSetMachineId){
 }
 
 
-function desactiverMenuCreationMachine(idMenu) {
-    
-    
-    // Récupérer le menuCréation avec son ID
-    let menu = document.getElementById(idMenu);
 
-    // Désactiver le menuCréation
-    menu.remove();
-
-    // Réactiver le comportement en arrière du menu
-    document.body.removeAttribute("id");
-
-}
 
 function afficherCheckboxSupprimer(boutonSupprimer) {
     

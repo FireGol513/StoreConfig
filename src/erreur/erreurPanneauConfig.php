@@ -11,17 +11,15 @@ $sessionConnecte->validerSession();
 
 if (!empty($_GET["erreur"])){
 
-    $afficherErreur = "";
+    $affichageErreur = "";
     $erreur = filter_input(INPUT_GET, "erreur", FILTER_DEFAULT);
 
-    if ($erreur == "nomReseau"){
-        $afficherErreur = "Impossible de créer le réseau dû au nom qu'il lui a été donné";
+    if ($erreur == "reseauIntrouvable"){
+        $affichageErreur = "Réseau introuvable";
     }
 }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +28,6 @@ if (!empty($_GET["erreur"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panneau de contrôle - StoreConfig</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/blocReseaux.css">
     
     <!--- Script pour les formulaires / menus-->
     <script src="/storeconfig/js/menu.js"></script>
@@ -42,49 +39,29 @@ if (!empty($_GET["erreur"])){
     <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
     
 </head>
-<body>
+<body class="bodyNonPlein">
     <header>
         <nav>
             <ul>
-                <li><a href=".">StoreConfig Control Panel</a></li>
-                <li><a href="../index.php">Quitter</a></li>
+                <li><a href="/storeconfig/panneauConfig/">StoreConfig Control Panel</a></li>
+                <li><a href="/storeconfig/">Quitter</a></li>
             </ul>
         </nav>
     </header>
 
 
-    <h1 id="titre">Vos réseaux</h1>
-    <?php
-    if ($afficherErreur != ""){
-       echo '<h2 id="slogan">'.$afficherErreur.'</h2>';
-    }
-
-    ?>
+    <!-- Information sur les erreurs du panneau de config-->
     <div>
-
-        <button onclick="creerNouveauReseau()" style="margin-left: 20%;">Créer</button>
-        <?php
-        # Il va falloir la base de données pour récupérer les réseaux par utilisateurs
+        <h1 id="titre">Erreur</h1>
         
-        $selectReseau = new SelectReseau($_SESSION["idUtilisateur"]);
-        $reseaux = $selectReseau->selectMultiple();
-        
-        foreach ($reseaux as $numReseau => $reseau) {
-            echo 
-            '<article id="reseau_div_'.$numReseau.'">
-                <h3>'.$reseau->getNomReseau().'</h3>
-                <form action="machines.php" name="RéseauxAction" method="get">
-                    <img src="/storeconfig/images/Reseaux/Tree-Network-Topology.jpg" alt="Image du réseaux">
-                    <fieldset>
-                        <button name="voir" value="'.$reseau->getId().'">Voir</button><br />
-                        <button name="modifier" value="'.$reseau->getId().'">Modifier</button><br />
-                        <input type="button" onclick="verificationSupression(reseau_div_'.$numReseau.','.$reseau->getId().')" value="Supprimer" id="SupprimerRéseaux'.$numReseau.'">
-                    </fieldset>
-                </form>
-            </article>';
-        }
-        ?>
+        <article>
+            <section id="slogan">
+                    <b><? if ($affichageErreur){echo $affichageErreur;}?></b>
+            </section>
+        </article>
     </div>
+    
+
 
     <!-- Pied de la page qui contient les informations pour me rejoindre et la repo GitHub -->
     <footer>

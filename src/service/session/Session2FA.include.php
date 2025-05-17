@@ -21,9 +21,10 @@ class Session2FA extends Session
     /**
      * Affecte les valeurs nécessaires à la validation de la session complète.
      */
-    public function setSession(string $nomUtilisateur, ?string $courriel)
+    public function setSession(string $nomUtilisateur, ?string $courriel, ?int $idUtilisateur)
     {
         $_SESSION["courriel"] = $courriel;
+        $_SESSION["idUtilisateur"] = $idUtilisateur;
         $_SESSION["nomUtilisateur"] = $nomUtilisateur;
         $_SESSION["delai"] = time();
     }

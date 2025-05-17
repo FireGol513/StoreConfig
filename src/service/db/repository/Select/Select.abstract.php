@@ -19,7 +19,7 @@ abstract class Select
     /**
      * Signature de la fonction de sélection d'un enregistrement.
      */
-    abstract function select();
+    abstract function select(mixed $p);
 
     /**
      * Signature de la fonction de sélection de plusieurs enregistrements.

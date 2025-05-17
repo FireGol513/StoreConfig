@@ -23,7 +23,7 @@ class SelectUtilisateur extends Select
     /**
      * Sélection du user selon le courriel
      */
-    public function select()
+    public function select($null = NULL)
     {
         try {
             $pdoRequete = $this->connexion->prepare("SELECT * FROM Utilisateurs WHERE Courriel=:courriel");

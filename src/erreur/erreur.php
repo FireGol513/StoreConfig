@@ -66,9 +66,9 @@ if (isset($_GET["erreur"])){
     </header>
 
 
-    <!-- Information sur les nouveautés du site et nos produits en général -->
+    <!-- Information sur les erreurs -->
     <div>
-        <h1 id="titre">Nos produits</h1>
+        <h1 id="titre">Erreur</h1>
         
         <article>
             <section id="slogan">
