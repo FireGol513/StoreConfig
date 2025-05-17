@@ -7,5 +7,4 @@ $session = new SessionFinale();
 session_start();
 $session->supprimer();
 header("Location: ../../index.php");
-
 ?>

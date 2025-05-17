@@ -53,7 +53,7 @@ $sessionConnecte->validerSession();
         
         <article style="margin-top: 5em;">
             <section id="slogan">
-                    <a href="panneauConfig/">Accéder aux stockages de configuration réseaux</a>
+                    <a href="panneauConfig/"> --> Accéder aux stockages de configuration réseaux <-- </a>
             </section>
         </article>
     </div>    

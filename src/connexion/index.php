@@ -1,22 +1,22 @@
 <?php
 
 
-# Ce fichier permet la connexion au utilisateur déjà existant dans la base de données
-session_start();
+# Ce fichier permet la connexion au utilisateur déjà existant dans la base de donnée
 
-if (session_name() == "ConnecteFinal"){
-    header("Location: /storeconfig");
-}
-elseif (session_name() == "2FA"){
-    header("Location: ./2FA.php");
-}
 
-session_destroy();
+# Changer de page si j'ai des sessions actives de connexion ou de 2FA
 
-if (isset($_SESSION[''])){
 
-}
-
+// echo session_name();
+// echo $_SESSION;
+// if (session_name() == "ConnecteFinal"){
+//     header("Location: /storeconfig");
+//     die();
+// }
+// elseif (session_name() == "2FA"){
+//     header("Location: ./2FA.php");
+//     die();
+// }
 
 ?>
 
@@ -36,7 +36,7 @@ if (isset($_SESSION[''])){
 
 
 </head>
-<body>
+<body class="bodyNonPlein">
     
     <!-- Barre de Navigation -->
     <header>
@@ -48,9 +48,9 @@ if (isset($_SESSION[''])){
     </header>
 
     <div>
-        <h1>Connexion</h1>
+        <h1 id="titre">Connexion</h1>
 
-        <form action="../service/connexionRedirect/auth.redirect.php" method="post">
+        <form class="formConnexion" action="../service/connexionRedirect/auth.redirect.php" method="post">
             <label for="Email">
                 Adresse de courriel:
                 <input type="email" name="courriel" id="courriel">
@@ -62,10 +62,11 @@ if (isset($_SESSION[''])){
             </label>
             <br>
             <input type="submit" value="Se connecter">
-
+            <br>
+            <a href="creerCompte.php">Pas de compte? <br> Créé le!</a>
         </form>
 
-        <a href="creerCompte.php">Pas de compte? Créé le!</a>
+        
     </div>
 
 

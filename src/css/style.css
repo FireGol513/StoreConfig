@@ -111,6 +111,10 @@ body{
     grid-template-rows: 10vh 67.25vh 15vh;
 }
 
+.bodyNonPlein > div{
+    margin-top: 2em;
+}
+
 
 a {
     text-decoration-color: transparent;
@@ -127,6 +131,53 @@ p{
 article > h1{
     text-align: center;
 }
+
+.formConnexion{
+    margin: auto;
+    margin-top: 6vh;
+    width: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    border-width: 1.2em;
+    border-radius: 3em;
+    border-color: #520691;
+    border-style: solid;
+    padding: 3em;
+}
+
+.formConnexion > label, .formConnexion > a {
+    font-family: "Aldrich", sans-serif;
+    text-align: center;
+}
+
+.formConnexion > a{
+    color: rgb(161, 14, 14);
+}
+
+.formConnexion > a:hover{
+    text-decoration: underline;
+}
+
+.formConnexion *{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.formConnexion > input[type=submit]{
+    margin: auto;
+    width: 17vh;
+    font-family: "Aldrich", sans-serif;
+    background-color: rgb(38, 197, 86);
+}
+
+.formConnexion > input[type=submit]:hover{
+    background-color: rgb(171, 196, 134);
+}
+
+
 
 footer {
     background-color: #520691;
