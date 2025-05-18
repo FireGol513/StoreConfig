@@ -7,6 +7,8 @@ class InsertReseau extends Insert
     protected string $nomReseau;
     protected string $idProprietaire;
 
+    protected int $idReseauCreer;
+
     // Construit la connexion dans le parent
     public function __construct()
     {
@@ -17,6 +19,12 @@ class InsertReseau extends Insert
         $this->nomReseau = $nomReseauACreer;
         $this->idProprietaire  = $idProprietaire;
     }
+
+
+    public function getIdReseauCreer(){
+        return $this->idReseauCreer;
+    }
+
 
     /**
      * Insertion de l'utilisateur dans la bd
@@ -31,6 +39,9 @@ class InsertReseau extends Insert
             $pdoRequete->bindParam(":nomReseau",$this->nomReseau,PDO::PARAM_STR);
             $pdoRequete->bindParam(":idProprietaire",$this->idProprietaire,PDO::PARAM_INT);
             $pdoRequete->execute();
+
+            $this->idReseauCreer = $this->connexion->lastInsertId();
+
 
             return true;
 

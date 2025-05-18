@@ -1,59 +1,15 @@
-class Machine {
-    
-    id; // Id de la machine dans la base de données
-    nom; 
-    modele; // Mikrotik, Proxmox PVE, Proxmox CT, Proxmox VM, Others
-    config; // Configuration complète de la machine
-    apiJetons; // Jeton qui permettrait de se connecter sur la machine (optionnel)
-    adresseIPWAN; // Permet de se connecter et de vérifier si la machine est ligne (optionnel)
-    
-    constructor(parameters) {
-        
-    }
-} 
-
-
 function afficherMenuCreationMachine() {
     
     // Il va falloir récupérer le prochain ID
     // ex: id = getLastID_DB() + 1;
 
-    // Création du menu devant toutes les machines
-    let menu = document.createElement('article');
+    // Création du form qui va contenir la question
+    elementMenu = creationMenuFlottant("Création d'une machine", "/storeconfig/service/infrastructure/creationMachine.redirect.php");
 
-    // Création d'un bouton pour quitter le menu
-    let boutonQuitter = document.createElement("button");
-    boutonQuitter.setAttribute("id","buttonQuitterMenu");
-    boutonQuitter.setAttribute("onclick","desactiverMenu('menuCreation')");
-    boutonQuitter.textContent = "X";
+    menuMachine = elementMenu["menu"];
+    formMachine = elementMenu["form"];
+    fieldSetMachine = elementMenu["fieldSet"];
 
-    // Règle CSS pour menu
-    menu.setAttribute("id", "menuCreation");
-
-    // Création d'un header qui contient Titre + Bouton quitter
-    let menuHeader = document.createElement("header");
-
-    // Contenu du menu
-    menuHeader.innerHTML = "<h2 class='questionMenuCreation titreMenu'><b>Création d'une machine<b></h2>";
-
-    // Afficher le menu
-    document.body.appendChild(menu);
-    menu.appendChild(menuHeader);
-    menuHeader.appendChild(boutonQuitter);
-
-    // Désactiver le comportement en arrière du menu
-    document.body.setAttribute("id", "horsMenuCreation")
-
-    // Créer le form qui va permettre de créer une machine
-    let formMachine = document.createElement("form");
-    formMachine.setAttribute("action", "reseau.php");
-    formMachine.setAttribute("name", "CréationMachine");
-    formMachine.setAttribute("method", "post");
-    menu.appendChild(formMachine)
-
-    let fieldSetMachine = document.createElement("fieldset");
-    fieldSetMachine.setAttribute("id","fieldSetCreationMachine")
-    formMachine.appendChild(fieldSetMachine)
 
 
     // Question du nom de la machine
@@ -81,24 +37,20 @@ function afficherMenuCreationMachine() {
 
     let selectModeleMachine = document.createElement("select");
     selectModeleMachine.setAttribute("id","modeleMachine");
-    selectModeleMachine.setAttribute("name","modeles");
+    selectModeleMachine.setAttribute("name","modele");
     labelModeleMachine.appendChild(selectModeleMachine);
     
-    let modeles = [
-        {nom:"Mikrotik", valeur:"mikrotik"},
-        {nom:"Proxmox PVE", valeur:"pve-host"},
-        {nom:"Proxmox CT", valeur:"pve-ct"},
-        {nom:"Proxmox VM", valeur:"pve-vm"},
-        {nom:"Autre", valeur:"autre"}]
 
+    recupererModeles().then(function(modeles){
+        modeles.forEach(modele =>{
+            var optionModele = document.createElement("option");
+            optionModele.textContent = modele["NomModele"];
+            optionModele.value = modele["Id"];
+            selectModeleMachine.appendChild(optionModele);
     
-    modeles.forEach(modele =>{
-        var optionModele = document.createElement("option");
-        optionModele.textContent = modele.nom;
-        optionModele.value = modele.valeur;
-        selectModeleMachine.appendChild(optionModele);
-
-    });
+        });
+    })
+    
     
     // Question optionnelles sur l'utilisation d'API pour le changement dynamique
     let labelAPIOptionnelMachine = document.createElement("label");
@@ -126,6 +78,25 @@ function afficherMenuCreationMachine() {
 
 
 }
+
+demande = {"demande" : "all"};
+async function recupererModeles(){
+    return await fetch("/storeconfig/service/getModeles.php", {
+        method: "POST",
+            headers: {
+                "Accept" : "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(demande)
+    }).then(response => response.json())
+};
+
+
+
+
+
+
+
 
 function afficherQuestionsAPI(checkbox, fieldSetMachineId){
 

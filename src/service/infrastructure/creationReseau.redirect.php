@@ -18,7 +18,8 @@ if (!empty($_POST["nomReseau"])){
         $requeteCreerReseau->setParams($nomReseau, $_SESSION["idUtilisateur"]);
 
         if ($requeteCreerReseau->insert()){
-            header("Location: /storeconfig/panneauConfig/machines.php?reseau=");
+            $id = $requeteCreerReseau->getIdReseauCreer();
+            header("Location: /storeconfig/panneauConfig/machines.php?modifier=".$id."");
         }
 
     }

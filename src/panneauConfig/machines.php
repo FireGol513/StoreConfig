@@ -66,7 +66,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
 
+    <!--- Script pour les formulaires / menus-->
     <script src="/storeconfig/js/machines.js"></script>
+    <script src="/storeconfig/js/menu.js"></script>
 </head>
 <body>
     <header>
