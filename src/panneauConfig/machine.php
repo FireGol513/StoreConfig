@@ -1,7 +1,7 @@
 <?php
 
     include_once __DIR__."/../service/session/SessionFinale.include.php";
-    require_once __DIR__."/../service/db/repository/Select/SelectReseau.classe.php";
+    require_once __DIR__."/../service/db/repository/Select/SelectInterface.classe.php";
     require_once __DIR__."/../service/db/repository/Select/SelectMachine.classe.php";
 
 
@@ -14,9 +14,9 @@
     $action = 0; 
     if (!empty($_GET['voir'])){
 
-        $idReseau = filter_input(INPUT_GET, "voir", FILTER_VALIDATE_INT);
+        $idMachine = filter_input(INPUT_GET, "voir", FILTER_VALIDATE_INT);
 
-        if ($idReseau){
+        if ($idMachine){
 
             $action = 1;
             
@@ -28,9 +28,9 @@
     }
     else if (!empty($_GET['modifier'])){
 
-        $idReseau = filter_input(INPUT_GET, "modifier", FILTER_VALIDATE_INT);
+        $idMachine = filter_input(INPUT_GET, "modifier", FILTER_VALIDATE_INT);
 
-        if ($idReseau){
+        if ($idMachine){
 
             $action = 2;
             
@@ -43,10 +43,11 @@
     else{
         // Pas d'erreur. Je rapporte seulement à la liste des réseaux
         header("Location: /storeconfig/panneauConfig/");
+        die();
     }
 
-    $selectReseau = new SelectReseau($_SESSION["idUtilisateur"]);
-    $reseau = $selectReseau->select($idReseau);
+    $selectMachine = new SelectMachine(0);
+    $machine = $selectMachine->select($idMachine);
 
 
 
@@ -57,10 +58,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StoreConfig - Machines</title>
+    <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/blocReseaux.css">
-    <link rel="stylesheet" href="../css/machine.css">
+    <link rel="stylesheet" href="../css/interface.css">
 
     <!--- Font personnalisé-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,7 +72,7 @@
     <script src="/storeconfig/js/machines.js"></script>
     <script src="/storeconfig/js/menu.js"></script>
 </head>
-<body>
+<body class=bodyDoomScroll>
     <header>
         <nav>
             <ul>
@@ -82,9 +83,11 @@
         </nav>
     </header>
 
-    <h1 id="titre"><?=$reseau->getNomReseau()?></h1>
+    <h1 id="titre"><?=$machine->getNomMachine()?></h1>
     
-    <div>
+    <h2 id="slogan"><?=$machine->getModele()?></h2>
+
+    <div class=conteneurInterfaceEtBouton>
         <!-- Affichage de toutes les machines dans le réseau sélectionné-->
         <?php
 
@@ -97,33 +100,36 @@
                 echo '</div>';
             }
 
-            // Machines
+            // Interfaces
 
-            $selectMachine = new SelectMachine($reseau->getId());
-            $machines = $selectMachine->selectMultiple();
+            $selectInterface = new SelectInterface($machine->getId());
+            $interfaces = $selectInterface->selectMultiple();
 
-            foreach ($machines as $numMachine => $machine) { 
-                echo
-                '<a class="aPourMachine" href="./machine.php?';
-                echo (($action == 1)) ? "voir" : "modifier";
-                echo '='.$machine->getId().'">
-                <article class="machine" style="display: flex; justify-content: space-between;">
-                <label for="NomMachine"> Nom de machine
-                <h4>'.$machine->getNomMachine().'</h4>
-                </label>
-                <label for="Modele"> Modèle de machine
-                <h4>'.$machine->getModele().'</h4>
-                </label> 
-                <label for="UtiliseAPI"> Utilise API? <h4>';
-
-                echo (($machine->getAPI() == 1)) ? "OUI" : "NON";
-
+            echo '<div class="conteneurInterface">';
+            foreach ($interfaces as $numInterface => $interface) { 
                 echo 
-                '
-                </h4>
+                '<article class="machine" style="width: 20%; margin: 3em;">
+                <label for="NomInterface"> Nom de l\'interface
+                <h5>'.$interface->getNom().'</h5>
+                </label>
+                <label for="Type"> Type d\'interface
+                <h5>'.$interface->getIdType().'</h5>
                 </label> 
-                </article> </a>';
+                <label for="AdresseMAC"> Adresse MAC
+                <h5>'.$interface->getAddressMAC().'</h5>
+                </label> 
+                <label for="AdresseIP"> Adresse IP + CIDR
+                <h5>'.$interface->getAddressIP().'/'.$interface->getCidr().'</h5>
+                </label> 
+                <label for="Paserelle"> Paserelle par défaut
+                <h5>'.$interface->getPaserelle().'</h5>
+                </label> 
+                <label for="Commentaires"> Commentaires
+                <h5>'.$interface->getCommentaires().'</h5>
+                </label> 
+                </article>';
             }
+            echo '</div>';
             
             
 
