@@ -104,9 +104,25 @@
             foreach ($machines as $numMachine => $machine) { 
                 echo 
                 '<article class="machine">
-                    <h5>'.$machine->getNomMachine().'</h5>
+                <label for="NomMachine"> Nom de machine
+                <h5>'.$machine->getNomMachine().'</h5>
+                </label>
+                <label for="Modele"> Modele de machine
+                <h5>'.$machine->getModele().'</h5>
+                </label> 
+                <label for="UtiliseAPI"> Utilise API? <h5>';
+
+                echo (($machine->getAPI() == 1)) ? "OUI" : "NON";
+
+                echo 
+                '
+                </h5>
+                </label> 
+                
                 </article>';
             }
+            
+            
 
 
             

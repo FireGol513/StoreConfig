@@ -64,17 +64,17 @@ class Machine{
     }
 
 
-    public function getModele(string $p)
+    public function getModele()
     {
         return $this->modele;
     }
 
-    public function getIdReseau(int $p) 
+    public function getIdReseau() 
     {
         return $this->idReseau;
     }
 
-    public function getAPI(int $p)
+    public function getAPI()
     {
         return $this->api;
     }

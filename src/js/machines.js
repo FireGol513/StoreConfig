@@ -11,6 +11,18 @@ function afficherMenuCreationMachine() {
     fieldSetMachine = elementMenu["fieldSet"];
 
 
+    let urlSearch = new URLSearchParams(window.location.search);
+
+
+
+    // Input caché pour le idReseau
+    let inputCacheIdReseau = document.createElement("input");
+    inputCacheIdReseau.setAttribute("name","idReseau")
+    inputCacheIdReseau.setAttribute("id","idReseau");
+    inputCacheIdReseau.setAttribute("value",urlSearch.get('modifier'));
+    inputCacheIdReseau.setAttribute("type","hidden");
+    fieldSetMachine.appendChild(inputCacheIdReseau);
+
 
     // Question du nom de la machine
     let labelNomMachine = document.createElement("label");
@@ -95,9 +107,6 @@ async function recupererModeles(){
 
 
 
-
-
-
 function afficherQuestionsAPI(checkbox, fieldSetMachineId){
 
     if (checkbox.checked){
@@ -139,7 +148,7 @@ function afficherQuestionsAPI(checkbox, fieldSetMachineId){
         labelAPIIdentifiant.appendChild(labelAPINomUtilisateur);
 
         let textAPINomUtilisateur = document.createElement("input");
-        textAPINomUtilisateur.setAttribute("name","nomUserAPI");
+        textAPINomUtilisateur.setAttribute("name","nomUtilisateurAPI");
         textAPINomUtilisateur.setAttribute("required","");
         labelAPINomUtilisateur.appendChild(textAPINomUtilisateur);
 
@@ -150,7 +159,7 @@ function afficherQuestionsAPI(checkbox, fieldSetMachineId){
 
         let passwordAPIMDP = document.createElement("input");
         passwordAPIMDP.setAttribute("type","password");
-        passwordAPIMDP.setAttribute("name","passwdAPI");
+        passwordAPIMDP.setAttribute("name","mdpAPI");
         passwordAPIMDP.setAttribute("required","");
         labelAPIMDP.appendChild(passwordAPIMDP);
         

@@ -32,14 +32,16 @@ class SelectMachine extends Select
     public function select($idMachine)
     {
         try {
-            $pdoRequete = $this->connexion->prepare("SELECT Mach.*, Mo.NomModele FROM Machines AS Mach LEFT JOIN Modeles AS Mo ON Mach.Modele = Mo.Id  WHERE Mach.Id=:idMachine AND Mach.Actif = 1");
+            $pdoRequete = $this->connexion->prepare("SELECT Mach.*, Mo.NomModele FROM Machines AS Mach LEFT JOIN Modeles AS Mo ON Mach.Modele = Mo.Id  WHERE Mach.Id=:idMachine AND Mach.Actif = :Actif");
     
             $pdoRequete->bindParam(":idMachine",$idMachine,PDO::PARAM_INT);
+            $pdoRequete->bindValue(":Actif",1,PDO::PARAM_INT);
         
             $pdoRequete->execute();
     
             $machine = $pdoRequete->fetch(PDO::FETCH_OBJ);
 
+            
             if ($machine){
                 
                 $this->machine->setId($machine->Id);
@@ -67,9 +69,10 @@ class SelectMachine extends Select
      public function selectMultiple()
      {
         
-        $pdoRequete = $this->connexion->prepare("SELECT Mach.*, Mo.NomModele FROM Machines AS Mach LEFT JOIN Modeles AS Mo ON Mach.Modele = Mo.Id WHERE Mach.Actif = 1");
+        $pdoRequete = $this->connexion->prepare("SELECT Mach.*, Mo.NomModele FROM Machines AS Mach LEFT JOIN Modeles AS Mo ON Mach.Modele = Mo.Id WHERE Mach.IdReseau = :IdReseau AND Mach.Actif = :Actif");
     
-        
+            $pdoRequete->bindParam(":IdReseau",$this->idReseau,PDO::PARAM_INT);
+            $pdoRequete->bindValue(":Actif",1,PDO::PARAM_INT);
             $pdoRequete->execute();
     
             $machines = $pdoRequete->fetchAll(PDO::FETCH_OBJ);
