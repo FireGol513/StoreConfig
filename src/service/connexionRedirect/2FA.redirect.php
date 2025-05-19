@@ -24,23 +24,24 @@ if (isset($_POST["Code2FA"]) && isset($_SESSION["code"]) && isset($_SESSION["cou
     $idUtilisateur = $_SESSION["idUtilisateur"];
 
     if (!isset($code2FA)){
-        error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Le code de 2FA n'ai pas numérique: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-        header("Location: ../../erreur/erreur.php");
+        error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Le code de 2FA n'ai pas numérique: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+        header("Location: /storeconfig/connexion/2FA.php?erreur=mauvaisCode");
         exit();
     }
 
     if ($code2FA == $_SESSION["code"]){
         session_destroy();
         CreerSessionFinaleConnecte($idUtilisateur, $nomUtilisateur, $session2FA);
+        error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Le code n'est pas le bon: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-reussis.log");
         header("Location: ../../index.php");
     }
     else{
-        error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Le code de 2FA ne correspond pas: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-        header("Location: ../../erreur/erreur.php");
+        error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Le code n'est pas le bon: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+        header("Location: /storeconfig/connexion/2FA.php?erreur=mauvaisCode");
     }
 }else{
-    error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Aucun code de 2FA n'a été récupéré: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-    header("Location: ../../erreur/erreur.php");
+    error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Aucun code 2FA n'a été récupérer: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+        header("Location: /storeconfig/connexion/2FA.php?erreur=mauvaisCode");
 }
 
 

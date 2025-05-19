@@ -31,14 +31,14 @@ if (!empty($_POST["nomMachine"]) || !empty($_POST["idReseau"]) || !empty($_POST[
 
     }
     else{
-        error_log("[".date("d/m/o H:i:s e",time())."] Échec de création de réseau - Le réseau a un nom qu n'est pas permis: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/infrastructure.log");
-        header("Location: /storeconfig/panneauConfig/index.php?erreur=nomReseau");
+        error_log("[".date("d/m/o H:i:s e",time())."] Échec de création de machine - La machine a un nom qui n'est pas permis: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/infrastructure.log");
+        header("Location: /storeconfig/panneauConfig/machines.pĥp?modifier=".$idReseau."&erreur=nomMachine");
     }
 
 }
 else{
-    error_log("[".date("d/m/o H:i:s e",time())."] Échec de création de réseau - Le réseau n'a pas de nom: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/infrastructure.log");
-    header("Location: /storeconfig/panneauConfig/index.php?erreur=nomReseau");
+    error_log("[".date("d/m/o H:i:s e",time())."] Échec de création de machine - La machine n'a pas d'information pour la création: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/infrastructure.log");
+    header("Location: /storeconfig/erreur/erreurPanneauConfig.php?erreur=pasInfoMachine");
 }
 
 ?>

@@ -2,6 +2,25 @@
 
 # Ce fichier permet de créer un compte dans la base de données
 
+$messageErreur = "";
+if (!empty($_GET["erreur"])){
+
+    $erreur = filter_input(INPUT_GET, "erreur", FILTER_DEFAULT);
+
+    if ($erreur){
+
+        switch ($erreur){
+            case "courrielDejaExistant":
+                $messageErreur = "Compte avec ses informations déjà existant";
+                
+                break;
+        }
+
+    }
+
+}
+
+
 ?>
 
 
@@ -37,19 +56,25 @@
         <h1 id="titre">Créer un compte</h1>
 
         <form class="formConnexion" action="../service/connexionRedirect/creerCompte.redirect.php" method="post">
+            
+            <?php
+                if ($messageErreur != ""){
+                    echo '<label style="color: red; text-decoration: underline;" for="mauvaiseDonnees">'.$messageErreur.'</label>';
+                }
+            ?>
             <label for="NomUtilisateur">
                 Nom d'utilisateur:
-                <input type="text" name="nomUtilisateur" id="nomUtilisateur">
+                <input type="text" name="nomUtilisateur" id="nomUtilisateur" required>
             </label>
             <br>
             <label for="Email">
                 Adresse courriel:
-                <input type="email" name="courriel" id="courriel">
+                <input type="email" name="courriel" id="courriel" required>
             </label>
             <br>
             <label for="MotDePasse">
                 Mot de passe:
-                <input type="password" name="mdp" id="mdp">
+                <input type="password" name="mdp" id="mdp" required>
             </label>
             <br>
             <input type="submit" value="Créer un compte">

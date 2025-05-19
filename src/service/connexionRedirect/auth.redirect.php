@@ -17,8 +17,8 @@ if (!empty($_POST['courriel']) and !empty($_POST['mdp'])){
     $mdp = filter_input(INPUT_POST, "mdp", FILTER_DEFAULT);
 
     if (empty($courriel)){
-        error_log("[".date("d/m/o H:i:s e",time())."] Authentification anormal - mail n'a pas la forme demandé: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-        header("Location: ../../erreur/erreur.php");
+        error_log("[".date("d/m/o H:i:s e",time())."] Authentification anormal - mail n'a pas la forme demandé: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+        header("Location: ../../erreur/erreur.php?erreur=connexionImpossible");
     }
 
     // Requête pour récupérer l'utilisateur
@@ -34,12 +34,12 @@ if (!empty($_POST['courriel']) and !empty($_POST['mdp'])){
         }
         else{
             // Il n'a pas le bon mot de passe
-            header("Location: ../../erreur/erreur.php"); // "Courriel ou mot de passe erroné"
+            header("Location: /storeconfig/connexion/index.php?erreur=informationErrone"); // "Courriel ou mot de passe erroné"
         }
     }
     else{
         // Il n'a pas le bon courriel (Utilisateur n'existe pas)
-        header("Location: ../../erreur/erreur.php"); // "Courriel ou mot de passe erroné"
+        header("Location: /storeconfig/connexion/index.php?erreur=informationErrone"); // "Courriel ou mot de passe erroné"
     }
 
     
@@ -47,8 +47,8 @@ if (!empty($_POST['courriel']) and !empty($_POST['mdp'])){
 }
 else{
     // Si je n'ai pas  le courriel ou le mot de passe 
-    error_log("[".date("d/m/o H:i:s e",time())."] Authentification anormal - nom d'utilisateur, mail ou mdp absent: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-    header("Location: ../../erreur/erreur.php");
+    error_log("[".date("d/m/o H:i:s e",time())."] Authentification anormal - nom d'utilisateur, mail ou mdp absent: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+    header("Location: ../../erreur/erreur.php?erreur=connexionImpossible");
 }
 
 ?>

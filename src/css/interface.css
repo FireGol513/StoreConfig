@@ -4,6 +4,7 @@
     display: grid;
     min-height: 100vh;
     margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 .conteneurInterfaceEtBouton{
@@ -13,8 +14,9 @@
 .conteneurInterface{
     display: flex;
     justify-content: start;
-    overflow-x: scroll;
+    overflow: scroll;
     scroll-behavior: smooth;
     scroll-snap-align: center;
     min-width: auto;
 }
+

@@ -13,6 +13,28 @@ function envoyerMail($to, $message) {
 }
 
 
+$messageErreur = "";
+if (!empty($_GET["erreur"])){
+
+    $erreur = filter_input(INPUT_GET, "erreur", FILTER_DEFAULT);
+
+    if ($erreur){
+
+        switch ($erreur){
+            case "mailNonEnvoyer":
+                $messageErreur = "Courriel ne s'est pas envoyer correctement";
+                break;
+            
+            case "mauvaisCode":
+                $messageErreur = "Mauvais code. Un nouveau code vous a été envoyé.";
+                break;
+        }
+
+    }
+
+}
+
+
 // Reprendre la session de 2FA
 
 require_once __DIR__."/../service/session/Session2FA.include.php";
@@ -30,8 +52,8 @@ if (isset($_SESSION["courriel"]) && isset($_SESSION["nomUtilisateur"])){
 
     if (!envoyerMail($courriel, "Votre code est : ".$code)) {
     
-        error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Nous ne pouvons pas envoyer un courriel pour la 2FA: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-        header("Location: ../erreur/erreur.php");
+        error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. Nous ne pouvons pas envoyer un courriel pour la 2FA: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+        header("Location: .?erreur=mailNonEnvoyer");
         exit();
     }
 
@@ -40,8 +62,8 @@ if (isset($_SESSION["courriel"]) && isset($_SESSION["nomUtilisateur"])){
     
 }
 else{
-    error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. L'utilisateur n'ai pas authentifié: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-    header("Location: ../erreur/erreur.php");
+    error_log("[".date("d/m/o H:i:s e",time())."] 2FA impossible. L'utilisateur n'ai pas authentifié: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+    header("Location: ../erreur/erreur.php?erreur=connexionImpossible");
     exit();
 }
 
@@ -77,6 +99,11 @@ else{
     <div>
         <h1 id="titre">Connexion 2FA</h1>
         <form class="formConnexion" action="../service/connexionRedirect/2FA.redirect.php" method="POST">
+            <?php
+                if ($messageErreur != ""){
+                    echo '<label style="color: red; text-decoration: underline;" for="mauvaiseDonnees">'.$messageErreur.'</label>';
+                }
+            ?>
             <label for="Code">
                 Code:
                 <input type="number" name="Code2FA" id="Code2FA">

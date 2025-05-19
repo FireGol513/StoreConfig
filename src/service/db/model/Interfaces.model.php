@@ -6,6 +6,7 @@ class Interfaces{
     private string $idMachine;
     private string $nom;
     private int $idType;
+    private string $nomType;
     private string $addressMAC;
     private string $addressIP;
     private int $cidr;
@@ -34,6 +35,11 @@ class Interfaces{
     public function setIdType(int $p)
     {
         $this->idType = $p;
+    }
+
+    public function setNomType(string $p)
+    {
+        $this->nomType = $p;
     }
 
     public function setAddressMAC(string $p) 
@@ -85,6 +91,11 @@ class Interfaces{
     public function getIdType()
     {
         return $this->idType;
+    }
+
+    public function getNomType()
+    {
+        return $this->nomType;
     }
 
     public function getAddressMAC() 

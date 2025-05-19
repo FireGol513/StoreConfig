@@ -42,14 +42,14 @@ class Session2FA extends Session
                 if (!isset($_SESSION['courriel']) || !isset($_SESSION['nomUtilisateur']) || !isset($_SESSION['delai']))
                 {
                     $this->supprimer();
-                    error_log("[".date("d/m/o H:i:s e",time())."] Accès directe refusée au requérant ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-                    header("Location: /storeconfig/erreur/erreur.php");
+                    error_log("[".date("d/m/o H:i:s e",time())."] Accès directe refusée au requérant Session2FA".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/acces-refuses.log");
+                    header("Location: /storeconfig/erreur/erreur.php?erreur=connexionImpossible");
                     exit();
 
                 } elseif ((time() - $_SESSION['delai']) > DUREE_SESSION_2FA) {
                     $this->supprimer();
-                    error_log("[".date("d/m/o H:i:s e",time())."] Session expirée : Requérant ".$_SERVER['REMOTE_ADDR']."Client authorisé: ".$_SESSION['courriel']."\n\r" ,3, __DIR__."/../../../../logs/storeconfig.acces.log");
-                    header("Location: /storeconfig/erreur/erreur.php");
+                    error_log("[".date("d/m/o H:i:s e",time())."] Session2FA expirée : Requérant ".$_SERVER['REMOTE_ADDR']."Client authorisé: ".$_SESSION['courriel']."\n\r" ,3, __DIR__."/../../../../logs/acces-refuses.log");
+                    header("Location: /storeconfig/erreur/erreur.php?erreur=delaiDepasse");
                     exit();
                     
                 }

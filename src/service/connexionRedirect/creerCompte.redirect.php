@@ -27,7 +27,7 @@ function RedirigerAuth($courriel, $mdp) {
 
 
 
-if (!empty($_POST['nomUtilisateur']) and !empty(filter_input(INPUT_POST, "courriel", FILTER_VALIDATE_EMAIL)) and !empty($_POST['mdp'])){
+if (!empty($_POST['nomUtilisateur']) && !empty(filter_input(INPUT_POST, "courriel", FILTER_VALIDATE_EMAIL)) && !empty($_POST['mdp'])){
 
     require_once __DIR__."/../db/repository/Insert/InsertUtilisateur.classe.php";
     require_once __DIR__."/../db/repository/Select/SelectUtilisateur.classe.php";
@@ -58,14 +58,13 @@ if (!empty($_POST['nomUtilisateur']) and !empty(filter_input(INPUT_POST, "courri
             
         }
         else{
-            error_log("[".date("d/m/o H:i:s e",time())."] Utilisateur n'a pas été créé correctement: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
             header("Location: ../../erreur/erreur.php");
         }
 
     }
     else{
         error_log("[".date("d/m/o H:i:s e",time())."] Le courriel est déjà utilisé pour un autre utilisateur: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-        header("Location: ../../erreur/erreur.php");
+        header("Location: /storeconfig/connexion/creerCompte.php?erreur=courrielDejaExistant");
     }
     
 }
@@ -74,7 +73,7 @@ else{
     
     // Si je n'ai pas le nom d'utilisateur, le courriel ou le mot de passe
     error_log("[".date("d/m/o H:i:s e",time())."] Authentification anormal - nom d'utilisateur, mail ou mdp absent: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../logs/storeconfig.acces.log");
-    header("Location: ../../erreur/erreur.php");
+    header("Location: ../../erreur/erreur.php?erreur=creationUtilisateur");
 }
 
 

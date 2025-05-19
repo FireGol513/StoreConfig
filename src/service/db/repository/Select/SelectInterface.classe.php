@@ -38,7 +38,7 @@ class SelectInterface extends Select
     public function select($idInterface)
     {
         try {
-            $pdoRequete = $this->connexion->prepare("SELECT * FROM Interfaces WHERE Id = :IdInterface AND Actif = :Actif;");
+            $pdoRequete = $this->connexion->prepare("SELECT I.*, TI.NomType FROM `Interfaces` AS I LEFT JOIN TypesInterface as TI ON I.IdType = TI.Id WHERE Id = :IdInterface AND Actif = :Actif;");
             
     
             $pdoRequete->bindParam(":IdInterface",$idInterface,PDO::PARAM_INT);
@@ -55,6 +55,7 @@ class SelectInterface extends Select
                 $this->interface->setIdMachine($interface->IdMachine);
                 $this->interface->setNom($interface->Nom);
                 $this->interface->setIdType($interface->IdType);
+                $this->interface->setNomType($interface->NomType);
                 $this->interface->setAddressMAC($interface->AddressMAC);
                 $this->interface->setAddressIP($interface->AddressIP);
                 $this->interface->setCidr($interface->CIDR);
@@ -79,7 +80,7 @@ class SelectInterface extends Select
      public function selectMultiple()
      {
         
-        $pdoRequete = $this->connexion->prepare("SELECT * FROM Interfaces WHERE IdMachine = :IdMachine  AND Actif = :Actif;");
+        $pdoRequete = $this->connexion->prepare("SELECT I.*, TI.NomType FROM `Interfaces` AS I LEFT JOIN TypesInterface as TI ON I.IdType = TI.Id WHERE IdMachine = :IdMachine  AND Actif = :Actif;");
     
             $pdoRequete->bindParam(":IdMachine",$this->idMachine,PDO::PARAM_INT);
             $pdoRequete->bindValue(":Actif",1,PDO::PARAM_INT);
@@ -94,6 +95,7 @@ class SelectInterface extends Select
                 $interface->setIdMachine($obj->IdMachine);
                 $interface->setNom($obj->Nom);
                 $interface->setIdType($obj->IdType);
+                $interface->setNomType($obj->NomType);
                 $interface->setAddressMAC($obj->AddressMAC);
                 $interface->setAddressIP($obj->AddresseIP);
                 $interface->setCidr($obj->CIDR);

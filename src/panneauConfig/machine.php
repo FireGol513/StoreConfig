@@ -91,20 +91,25 @@
         <!-- Affichage de toutes les machines dans le réseau sélectionné-->
         <?php
 
-            // Bouton pour ajouter ou supprimer des machines
-            
-            if(($action == 2)){
-                echo '<div class="conteneurBouton">';
-                echo '<button class="buttonMachine" onclick="afficherMenuCreationMachine()"><img src="/storeconfig/images/Creation/plus-icon.png" alt="Ajouter"></button>';
-                echo '<button class="buttonMachine" onclick="afficherCheckboxSupprimer(this)"><img src="/storeconfig/images/Creation/minus-icon.png" alt="Supprimer"></button>';
-                echo '</div>';
-            }
-
             // Interfaces
 
             $selectInterface = new SelectInterface($machine->getId());
             $interfaces = $selectInterface->selectMultiple();
 
+            if (count($interfaces) >= 6){
+                echo '<h2 id="slogan">Veuillez défiller de gauche à droite pour voir tout vos interfaces</h2>';
+            }
+
+            // Bouton pour ajouter ou supprimer des machines
+            echo '<div class="conteneurBouton">';
+            if(($action == 2)){
+                
+                //echo '<button class="buttonMachine" onclick="afficherMenuCreationMachine()"><img src="/storeconfig/images/Creation/plus-icon.png" alt="Ajouter"></button>';
+                echo '<h2 id="slogan">Création d\'interfaces indisponible pour le moment</h2>';
+            }
+            echo '</div>';
+            
+            
             echo '<div class="conteneurInterface">';
             foreach ($interfaces as $numInterface => $interface) { 
                 echo 
@@ -113,7 +118,7 @@
                 <h5>'.$interface->getNom().'</h5>
                 </label>
                 <label for="Type"> Type d\'interface
-                <h5>'.$interface->getIdType().'</h5>
+                <h5>'.$interface->getNomType().'</h5>
                 </label> 
                 <label for="AdresseMAC"> Adresse MAC
                 <h5>'.$interface->getAddressMAC().'</h5>
@@ -130,10 +135,6 @@
                 </article>';
             }
             echo '</div>';
-            
-            
-
-
             
         ?>
     </div>

@@ -14,9 +14,18 @@ if (!empty($_GET["erreur"])){
     $affichageErreur = "";
     $erreur = filter_input(INPUT_GET, "erreur", FILTER_DEFAULT);
 
-    if ($erreur == "reseauIntrouvable"){
-        $affichageErreur = "Réseau introuvable";
+    if ($erreur){
+        switch ($erreur){
+            case "reseauIntrouvable":
+                $affichageErreur = "Réseau introuvable";
+                break;
+            
+            case "aucunInfoReseau":
+                $affichageErreur = "Manque d'informations pour la création du réseau";
+                break;
+        }
     }
+    
 }
 
 ?>

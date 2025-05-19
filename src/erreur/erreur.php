@@ -16,6 +16,18 @@ if (isset($_GET["erreur"])){
             $affichageErreur = "Vous devez être authentifié pour voir cette page";
             break;
 
+        case "creationUtilisateur":
+            $affichageErreur = "Création de compte impossible";
+            break;
+
+        case "connexionImpossible":
+            $affichageErreur = "Connexion impossible";
+            break;
+
+        case "delaiDepasse":
+            $affichageErreur = "Délai de connexion dépassé";
+            break;
+
         default:
             $affichageErreur = "Vous avez une erreur";
     }

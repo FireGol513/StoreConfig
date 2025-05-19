@@ -36,10 +36,11 @@ class InsertUtilisateur extends Insert
             $pdoRequete->bindParam(":mdp",$this->mdp,PDO::PARAM_STR);
             $pdoRequete->execute();
 
+            error_log("[".date("d/m/o H:i:s e",time())."] Utilisateur '".$this->nomUtilisateur."' a été inséré correctement dans la BD: Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../../../logs/insertion-bd.log");
             return true;
 
         } catch (Exception $e) {
-            error_log("Exception pdo: ".$e->getMessage());
+            error_log("[".date("d/m/o H:i:s e",time())."] Exception pdo: ".$e->getMessage().": Client ".$_SERVER['REMOTE_ADDR']."\n\r",3, __DIR__."/../../../../../../logs/insertion-bd.log");
             return false;
         }        
     }

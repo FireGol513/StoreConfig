@@ -60,9 +60,11 @@ if (!empty($_GET["erreur"])){
     }
 
     ?>
-    <div>
+    <div class="conteneurBouton">
 
-        <button onclick="creerNouveauReseau()" style="margin-left: 20%;">Créer</button>
+    <button class="buttonMachine" onclick="creerNouveauReseau()"><img src="/storeconfig/images/Creation/plus-icon.png" alt="Ajouter"></button>
+
+    </div>
         <?php
         # Il va falloir la base de données pour récupérer les réseaux par utilisateurs
         

@@ -18,6 +18,25 @@
 //     die();
 // }
 
+$messageErreur = "";
+if (!empty($_GET["erreur"])){
+
+    $erreur = filter_input(INPUT_GET, "erreur", FILTER_DEFAULT);
+
+    if ($erreur){
+
+        switch ($erreur){
+            case "informationErrone":
+                $messageErreur = "Courriel ou mot de passe erroné";
+                break;
+        }
+
+    }
+
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +44,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>StoreConfig - Connexion</title>
 
     <link rel="stylesheet" href="/storeconfig/css/style.css">
 
@@ -51,14 +70,20 @@
         <h1 id="titre">Connexion</h1>
 
         <form class="formConnexion" action="../service/connexionRedirect/auth.redirect.php" method="post">
+            
+            <?php
+                if ($messageErreur != ""){
+                    echo '<label style="color: red; text-decoration: underline;" for="mauvaiseDonnees">'.$messageErreur.'</label>';
+                }
+            ?>
             <label for="Email">
                 Adresse de courriel:
-                <input type="email" name="courriel" id="courriel">
+                <input type="email" name="courriel" id="courriel" required>
             </label>
             <br>
             <label for="MotDePasse">
                 Mot de passe:
-                <input type="password" name="mdp" id="mdp">
+                <input type="password" name="mdp" id="mdp" required>
             </label>
             <br>
             <input type="submit" value="Se connecter">
